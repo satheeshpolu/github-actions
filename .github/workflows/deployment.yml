@@ -1,0 +1,18 @@
+name: Deployment
+
+
+on:
+  #Events: Trigger for merge event
+  push:
+    branches: [ "main" ]
+
+jobs:
+  deploy:
+
+    runs-on: ubuntu-latest #All jobs are run on Github server not local machine
+
+    steps: ##
+    - uses: actions/checkout@v4 #Tells the github to heckout the current branch
+    - run: docker build -t "${{secrets.DOCKER_HUB_USER_NAME}}"/github-actions . #it shoulb match with dockerhub repo
+    - run: echo "${{secrets.DOCKER_HUB_TOKEN}}" | docker login -u ${{secrets.DOCKER_HUB_USER_NAME}} --password-stdin
+    - run: docker push spabadmin/github-actions:1.0.0
