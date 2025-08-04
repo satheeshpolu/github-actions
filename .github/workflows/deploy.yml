@@ -13,6 +13,6 @@ jobs:
 
     steps: ##
     - uses: actions/checkout@v4 #Tells the github to heckout the current branch
-    - run: docker build -t spabadmin/github-actions:latest . #it shoulb match with dockerhub repo
+    - run: docker build . -t spabadmin/github-actions #it shoulb match with dockerhub repo
     - run: echo "${{ secrets.DOCKER_HUB_TOKEN }}" | docker login -u spabadmin --password-stdin
     - run: docker push spabadmin/github-actions:latest
